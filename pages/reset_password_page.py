@@ -1,6 +1,4 @@
 import allure
-
-from locators.login_page_locators import LoginPageLocators
 from locators.reset_password_locators import ResetPasswordLocators
 from pages.base_page import BasePage
 
@@ -17,7 +15,7 @@ class ResetPasswordPage(BasePage):
 
     @allure.step("Кликнуть на иконку 'показать пароль'")
     def click_on_show_password_icon(self):
-        self.click_on_element(ResetPasswordLocators.SHOW_PASSWORD_ICON)
+        self.click_on_element_using_script(ResetPasswordLocators.SHOW_PASSWORD_ICON)
 
     # reset-password
     @allure.step("Вернуть значение поля 'показать пароль'")

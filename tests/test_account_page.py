@@ -33,4 +33,3 @@ class TestAccountPage:
         current_url = account_page.get_current_url()
 
         assert current_url == expected_url
-

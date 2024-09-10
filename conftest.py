@@ -30,6 +30,38 @@ def driver(request):
     driver.quit()
 
 
+@pytest.fixture
+def create_user():
+    user_data = generate_user_data()
+    response = requests.post(data.Url.REGISTER_URL_API, json=user_data)
+    access_token = response.json()["accessToken"]
+    yield user_data["email"], user_data["password"], access_token
+
+    requests.delete(data.Url.DELETE_URL_API, headers={"Authorization": f'{access_token}'})
+
+
+@pytest.fixture()
+def authorization(create_user, login_page, driver):
+    email, password, _ = create_user
+    login_page.authorization(email, password)
+
+    return MainPage(driver)
+
+
+@pytest.fixture()
+def create_order(create_user):
+    _, _, access_token = create_user
+
+    ingredients_data = {
+        "ingredients": [
+            "61c0c5a71d1f82001bdaaa6f",
+            "61c0c5a71d1f82001bdaaa70"
+        ]
+    }
+
+    requests.post(data.Url.ORDER_URL_API, headers={"Authorization": f'{access_token}'}, json=ingredients_data)
+
+
 @pytest.fixture()
 def login_page(driver):
     page = LoginPage(driver)
@@ -61,35 +93,3 @@ def main_page(driver):
 @pytest.fixture()
 def order_feed_page(driver):
     return OrderFeedPage(driver)
-
-
-@pytest.fixture
-def create_user():
-    user_data = generate_user_data()
-    response = requests.post(data.Url.REGISTER_URL_API, json=user_data)
-    access_token = response.json()["accessToken"]
-    yield user_data["email"], user_data["password"], access_token
-
-    requests.delete(data.Url.DELETE_URL_API, headers={"Authorization": f'{access_token}'})
-
-
-@pytest.fixture()
-def authorization(create_user, login_page, driver):
-    email, password, _ = create_user
-    login_page.authorization(email, password)
-
-    return MainPage(driver)
-
-
-@pytest.fixture()
-def create_order(create_user):
-    _, _, access_token = create_user
-
-    ingredients_data = {
-        "ingredients": [
-            "61c0c5a71d1f82001bdaaa6f",
-            "61c0c5a71d1f82001bdaaa70"
-        ]
-    }
-
-    requests.post(data.Url.ORDER_URL_API, headers={"Authorization": f'{access_token}'}, json=ingredients_data)

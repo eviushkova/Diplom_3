@@ -57,13 +57,10 @@ class TestOrderFeedPage:
     def test_counter_value_in_progress_increments(self, authorization, main_page, order_feed_page):
         main_page.drag_and_drop_ingredient_in_basket()
         main_page.click_on_place_order_button()
-        order_number = main_page.get_order_number()
+        order_number = main_page.get_order_number_converted_to_string()
         main_page.click_on_cross_button_in_success_modal_window()
         main_page.click_on_order_feed_button()
         order_feed_page.wait_order_page_load()
         order_number_in_progress_counter = order_feed_page.get_counter_value_orders_in_progress()
 
         assert order_number == order_number_in_progress_counter
-
-
-

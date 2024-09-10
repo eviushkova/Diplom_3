@@ -16,6 +16,3 @@ class MainPageLocators:
     CROSS_BUTTON_SUCCESS_ORDER_MODAL_WINDOW = By.XPATH, "//button[contains(@class, 'Modal_modal__close_modified')]"
     SUCCESS_ORDER_MODAL_WINDOW = By.XPATH, "//div[contains(@class, 'Modal_modal__contentBox')]"
     ORDER_NUMBER = By.XPATH, "//h2[contains(@class,'title_shadow')]"
-
-
-

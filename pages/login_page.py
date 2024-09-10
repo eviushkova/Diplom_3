@@ -1,5 +1,4 @@
 import allure
-
 import data
 from locators.forgot_password_locators import ForgotPasswordLocators
 from locators.login_page_locators import LoginPageLocators
@@ -7,7 +6,7 @@ from pages.base_page import BasePage
 
 
 class LoginPage(BasePage):
-    @allure.step("")
+    @allure.step("Открыть страницу 'Логин'")
     def open_page(self):
         self.get_url(data.Url.LOGIN_URL)
 
@@ -44,11 +43,3 @@ class LoginPage(BasePage):
         self.fill_email(email)
         self.fill_password(password)
         self.click_on_sign_in_button()
-
-
-
-
-
-
-
-

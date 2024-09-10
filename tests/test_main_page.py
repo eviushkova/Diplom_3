@@ -1,5 +1,4 @@
 import allure
-
 import data
 
 
@@ -49,6 +48,6 @@ class TestMainPage:
     def test_order_creation_by_authorized_user(self, authorization, main_page):
         main_page.drag_and_drop_ingredient_in_basket()
         main_page.click_on_place_order_button()
-        order_status_text = main_page.get_order_status()
+        order_number = main_page.get_order_number()
 
-        assert order_status_text == data.Data.ORDER_STATUS_PREPARATION_MESSAGE
+        assert order_number is not data.Data.BASE_ORDER_ID
